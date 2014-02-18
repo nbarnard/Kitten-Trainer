@@ -17,6 +17,8 @@
 @property (nonatomic, strong) MMCharacter *catServant;
 @property (nonatomic, strong) NSArray *clowder; // clowder: noun - a group or cluster of cats.
 @property (nonatomic, strong) NSArray *deludedHumans;
+@property (nonatomic) NSTimeInterval lastUpdateTimeInterval;
+@property (nonatomic, strong) NSMutableSet *unusedPee;
 
 @end
 
@@ -45,6 +47,8 @@
 
         self.deludedHumans = [self loadSpriteFramesForFileRoot:@"pissedservant" withNumberOfFrames:8 andSizeMultipler:1];
 
+        self.unusedPee = [NSMutableSet new];
+
     }
     return self;
 }
@@ -63,56 +67,67 @@
 
 }
 
+-(SKSpriteNode *)getNewPee {
+    SKSpriteNode *pee;
+    if ([self.unusedPee count] == 0) {
+        pee = [SKSpriteNode spriteNodeWithImageNamed:@"pee"];
+    } else {
+        pee = [self.unusedPee anyObject];
+        [self.unusedPee removeObject:pee];
+    }
+    pee.position = CGPointMake(self.kitten.position.x, self.kitten.position.y - (self.kitten.size.height / 3));
+    pee.name = @"pee";
+
+    return pee;
+}
+
+-(void)removePee:(SKSpriteNode *) pee {
+    pee.name = @"";
+    [self.unusedPee addObject:pee];
+    [pee removeFromParent];
+}
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-
     for (UITouch *touch in touches) {
-        SKSpriteNode *pee = [SKSpriteNode spriteNodeWithImageNamed:@"pee"];
-        pee.position = CGPointMake(self.kitten.position.x, self.kitten.position.y - (self.kitten.size.height / 3));
-        pee.name = @"pee";
-
-
+        SKSpriteNode *pee = [self getNewPee];
         [self addChild:pee];
     }
-
-
-    /* Called when a touch begins */
-    
-//    for (UITouch *touch in touches) {
-//        CGPoint location = [touch locationInNode:self];
-//        
-//        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-//        
-//        sprite.position = location;
-//        
-//        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-//        
-//        [sprite runAction:[SKAction repeatActionForever:action]];
-//        
-//        [self addChild:sprite];
-//    }
-
-
-
 
 }
 
 -(void)update:(CFTimeInterval)currentTime
 {
+    CFTimeInterval timeSinceLastUpdate = currentTime - self.lastUpdateTimeInterval;
+
+    self.lastUpdateTimeInterval = currentTime;
+    if (timeSinceLastUpdate > 1) { // more than a second since last update
+        timeSinceLastUpdate = 1.0 / 60.0;
+    }
+
+    double deltaTimeAdjustment = timeSinceLastUpdate * 60; // If we're at 60 fps, deltaTimeAdjustment is 1, else it is more than 1 so we keep at the same rate.
+
     [self enumerateChildNodesWithName:@"background" usingBlock:^(SKNode *node, BOOL *stop) {
         SKSpriteNode *background = (SKSpriteNode *) node;
-        background.position = CGPointMake(background.position.x -3, background.position.y);
+        background.position = CGPointMake(background.position.x - 1 * deltaTimeAdjustment, background.position.y);
 
         if (background.position.x <= -background.size.width) {
             background.position = CGPointMake(background.position.x + background.size.width * 2, background.position.y);
         }
     }];
 
+    __block int peeSpots = 0;
+
     [self enumerateChildNodesWithName:@"pee" usingBlock:^(SKNode *node, BOOL *stop) {
         SKSpriteNode *pee = (SKSpriteNode *) node;
         pee.position = CGPointMake(pee.position.x -3, pee.position.y);
-    }];
+        if(pee.position.x < 0) {
+            [self removePee:pee];
+        }
 
-    if(currentTime - self.kitten.frameDisplaySecond > 0.5) {
+        peeSpots++;
+    }];
+    
+    if(currentTime - self.kitten.frameDisplaySecond > (0.16 * deltaTimeAdjustment)) {
         // the cat walks every half second
         int nextKittenCycle = self.kitten.walkCycle + 1;
         if (nextKittenCycle == [_clowder count]) {

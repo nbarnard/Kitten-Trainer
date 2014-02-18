@@ -8,12 +8,14 @@
 
 #import "MMMyScene.h"
 #import "MMCharacter.h"
+#import "Kitten.h"
 
 #define KITTENSIZEMULTIPLIER 4
 
 @interface MMMyScene ()
 
-@property (nonatomic, strong) MMCharacter *kitten;
+//@property (nonatomic, strong) MMCharacter *kitten;
+@property (nonatomic, strong) SKSpriteNode *kitten;
 @property (nonatomic, strong) NSArray *clowder; // clowder: noun - a group or cluster of cats.
 
 
@@ -34,19 +36,28 @@
             [self addChild:background];
         }
 
-        NSMutableArray *mammaCatWomb = [NSMutableArray new];
-        for(int i = 0; i < 3; i++) {
-            MMCharacter *kitten = [MMCharacter spriteNodeWithImageNamed:[NSString stringWithFormat:@"Kitten-%d", i]];
-            kitten.walkCycle = i;
-            kitten.size = CGSizeMake(kitten.size.width * KITTENSIZEMULTIPLIER, kitten.size.height * KITTENSIZEMULTIPLIER);
-            kitten.position = CGPointMake(400, 200);
-            [mammaCatWomb addObject:kitten];
-        }
+//        NSMutableArray *mammaCatWomb = [NSMutableArray new];
+//        for(int i = 0; i < 3; i++) {
+//            MMCharacter *kitten = [MMCharacter spriteNodeWithImageNamed:[NSString stringWithFormat:@"Kitten-%d", i]];
+//            kitten.walkCycle = i;
+//            kitten.size = CGSizeMake(kitten.size.width * KITTENSIZEMULTIPLIER, kitten.size.height * KITTENSIZEMULTIPLIER);
+//            kitten.position = CGPointMake(400, 200);
+//            [mammaCatWomb addObject:kitten];
+//        }
+//
+//        _clowder = [[NSArray alloc] initWithArray:mammaCatWomb];
+//        self.kitten = _clowder[0];
 
-        _clowder = [[NSArray alloc] initWithArray:mammaCatWomb];
+        SKTexture *kittenTexture = [SKTexture textureWithImageNamed:@"Kitten"];
+        self.kitten = [SKSpriteNode spriteNodeWithTexture:kittenTexture];
 
-        self.kitten = _clowder[0];
+        self.kitten.position = CGPointMake(400, 200);
+
         [self addChild:self.kitten];
+
+        SKAction *walk = [SKAction repeatActionForever:[SKAction animateWithTextures:KITTEN_ANIM_KITTEN timePerFrame:0.5]];
+        [self.kitten runAction:walk];
+
 
 //        /* Setup your scene here */
 //        
@@ -101,21 +112,21 @@
     }];
 
 
-    if(currentTime - self.kitten.frameDisplaySecond > 0.5) {
-        // the cat walks every half second
-        int nextKittenCycle = self.kitten.walkCycle + 1;
-        if (nextKittenCycle == [_clowder count]) {
-            nextKittenCycle = 0;
-        }
-
-        MMCharacter *nextKitten = [self.clowder objectAtIndex:nextKittenCycle];
-
-        nextKitten.position = self.kitten.position;
-        nextKitten.frameDisplaySecond = currentTime;
-        [self.kitten removeFromParent];
-        self.kitten = nextKitten;
-        [self addChild:self.kitten];
-    }
+//    if(currentTime - self.kitten.frameDisplaySecond > 0.5) {
+//        // the cat walks every half second
+//        int nextKittenCycle = self.kitten.walkCycle + 1;
+//        if (nextKittenCycle == [_clowder count]) {
+//            nextKittenCycle = 0;
+//        }
+//
+//        MMCharacter *nextKitten = [self.clowder objectAtIndex:nextKittenCycle];
+//
+//        nextKitten.position = self.kitten.position;
+//        nextKitten.frameDisplaySecond = currentTime;
+//        [self.kitten removeFromParent];
+//        self.kitten = nextKitten;
+//        [self addChild:self.kitten];
+//    }
 
 }
 

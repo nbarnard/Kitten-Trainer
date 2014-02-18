@@ -17,13 +17,13 @@
 		1166089F18B2BA2000F85B82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1166089D18B2BA2000F85B82 /* Main.storyboard */; };
 		116608A218B2BA2000F85B82 /* MMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116608A118B2BA2000F85B82 /* MMViewController.m */; };
 		116608A518B2BA2000F85B82 /* MMMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 116608A418B2BA2000F85B82 /* MMMyScene.m */; };
-		116608A718B2BA2100F85B82 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 116608A618B2BA2100F85B82 /* Spaceship.png */; };
 		116608A918B2BA2100F85B82 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 116608A818B2BA2100F85B82 /* Images.xcassets */; };
 		116608B018B2BA2100F85B82 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 116608AF18B2BA2100F85B82 /* XCTest.framework */; };
 		116608B118B2BA2100F85B82 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1166088918B2BA2000F85B82 /* Foundation.framework */; };
 		116608B218B2BA2100F85B82 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1166088D18B2BA2000F85B82 /* UIKit.framework */; };
 		116608BA18B2BA2100F85B82 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 116608B818B2BA2100F85B82 /* InfoPlist.strings */; };
 		116608BC18B2BA2100F85B82 /* Kitten_TrainerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 116608BB18B2BA2100F85B82 /* Kitten_TrainerTests.m */; };
+		116608D318B2CB9300F85B82 /* MMCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 116608D218B2CB9300F85B82 /* MMCharacter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,13 +53,14 @@
 		116608A118B2BA2000F85B82 /* MMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMViewController.m; sourceTree = "<group>"; };
 		116608A318B2BA2000F85B82 /* MMMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMMyScene.h; sourceTree = "<group>"; };
 		116608A418B2BA2000F85B82 /* MMMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMMyScene.m; sourceTree = "<group>"; };
-		116608A618B2BA2100F85B82 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		116608A818B2BA2100F85B82 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		116608AE18B2BA2100F85B82 /* Kitten TrainerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Kitten TrainerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		116608AF18B2BA2100F85B82 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		116608B718B2BA2100F85B82 /* Kitten TrainerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Kitten TrainerTests-Info.plist"; sourceTree = "<group>"; };
 		116608B918B2BA2100F85B82 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		116608BB18B2BA2100F85B82 /* Kitten_TrainerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Kitten_TrainerTests.m; sourceTree = "<group>"; };
+		116608D118B2CB9300F85B82 /* MMCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMCharacter.h; sourceTree = "<group>"; };
+		116608D218B2CB9300F85B82 /* MMCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMCharacter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,9 +127,10 @@
 				1166089D18B2BA2000F85B82 /* Main.storyboard */,
 				116608A018B2BA2000F85B82 /* MMViewController.h */,
 				116608A118B2BA2000F85B82 /* MMViewController.m */,
+				116608D118B2CB9300F85B82 /* MMCharacter.h */,
+				116608D218B2CB9300F85B82 /* MMCharacter.m */,
 				116608A318B2BA2000F85B82 /* MMMyScene.h */,
 				116608A418B2BA2000F85B82 /* MMMyScene.m */,
-				116608A618B2BA2100F85B82 /* Spaceship.png */,
 				116608A818B2BA2100F85B82 /* Images.xcassets */,
 				1166089218B2BA2000F85B82 /* Supporting Files */,
 			);
@@ -243,7 +245,6 @@
 			files = (
 				1166089618B2BA2000F85B82 /* InfoPlist.strings in Resources */,
 				116608A918B2BA2100F85B82 /* Images.xcassets in Resources */,
-				116608A718B2BA2100F85B82 /* Spaceship.png in Resources */,
 				1166089F18B2BA2000F85B82 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,6 +266,7 @@
 			files = (
 				116608A518B2BA2000F85B82 /* MMMyScene.m in Sources */,
 				1166089C18B2BA2000F85B82 /* MMAppDelegate.m in Sources */,
+				116608D318B2CB9300F85B82 /* MMCharacter.m in Sources */,
 				116608A218B2BA2000F85B82 /* MMViewController.m in Sources */,
 				1166089818B2BA2000F85B82 /* main.m in Sources */,
 			);
@@ -477,6 +479,7 @@
 				116608C118B2BA2100F85B82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		116608C218B2BA2100F85B82 /* Build configuration list for PBXNativeTarget "Kitten TrainerTests" */ = {
 			isa = XCConfigurationList;
@@ -485,6 +488,7 @@
 				116608C418B2BA2100F85B82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

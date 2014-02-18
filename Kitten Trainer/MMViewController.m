@@ -15,17 +15,6 @@
 {
     [super viewDidLoad];
 
-    // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
-    
-    // Create and configure the scene.
-    SKScene * scene = [MMMyScene sceneWithSize:skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene.
-    [skView presentScene:scene];
 }
 
 - (BOOL)shouldAutorotate
@@ -46,6 +35,23 @@
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
+}
+
+-(void)viewWillLayoutSubviews
+{
+
+    // Configure the view.
+    SKView * skView = (SKView *)self.view;
+    //    skView.showsFPS = YES;
+    skView.showsNodeCount = YES;
+
+    // Create and configure the scene.
+    SKScene * scene = [MMMyScene sceneWithSize:skView.bounds.size];
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+
+    // Present the scene.
+    [skView presentScene:scene];
+    
 }
 
 @end

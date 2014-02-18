@@ -14,8 +14,9 @@
 @interface MMMyScene ()
 
 @property (nonatomic, strong) MMCharacter *kitten;
+@property (nonatomic, strong) MMCharacter *catServant;
 @property (nonatomic, strong) NSArray *clowder; // clowder: noun - a group or cluster of cats.
-
+@property (nonatomic, strong) NSArray *deludedHumans;
 
 @end
 
@@ -34,44 +35,46 @@
             [self addChild:background];
         }
 
-        NSMutableArray *mammaCatWomb = [NSMutableArray new];
-        for(int i = 0; i < 3; i++) {
-            MMCharacter *kitten = [MMCharacter spriteNodeWithImageNamed:[NSString stringWithFormat:@"Kitten-%d", i]];
-            kitten.walkCycle = i;
-            kitten.size = CGSizeMake(kitten.size.width * KITTENSIZEMULTIPLIER, kitten.size.height * KITTENSIZEMULTIPLIER);
-            kitten.position = CGPointMake(400, 200);
-            [mammaCatWomb addObject:kitten];
-        }
 
-        _clowder = [[NSArray alloc] initWithArray:mammaCatWomb];
+        self.clowder = [self loadSpriteFramesForFileRoot:@"Kitten" withNumberOfFrames:3 andSizeMultipler:KITTENSIZEMULTIPLIER];
 
         self.kitten = _clowder[0];
+        self.kitten.position = CGPointMake(400, 200);
+
         [self addChild:self.kitten];
 
-//        /* Setup your scene here */
-//        
-//        self.backgroundColor = [SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
-//        
-//        SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-//        
-//        myLabel.text = @"Hello, World!";
-//        myLabel.fontSize = 30;
-//        myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-//                                       CGRectGetMidY(self.frame));
-//        
-//        [self addChild:myLabel];
+        self.deludedHumans = [self loadSpriteFramesForFileRoot:@"pissedservant" withNumberOfFrames:8 andSizeMultipler:1];
+
     }
     return self;
 }
 
-//-(NSArray *)loadSpriteFramesForFileRoot:(NSString *) fileRoot {
-//
-//
-//
-//
-//}
+-(NSArray *)loadSpriteFramesForFileRoot:(NSString *) fileRoot withNumberOfFrames: (int) frameNumber andSizeMultipler: (int) multiplier {
+
+    NSMutableArray *womb = [NSMutableArray new];
+    for(int i = 0; i < frameNumber; i++) {
+        MMCharacter *character = [MMCharacter spriteNodeWithImageNamed:[NSString stringWithFormat:@"%@-%d", fileRoot, i]];
+        character.walkCycle = i;
+        character.size = CGSizeMake(character.size.width * multiplier, character.size.height * multiplier);
+        [womb addObject:character];
+    }
+
+    return [[NSArray alloc] initWithArray:womb];
+
+}
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+
+    for (UITouch *touch in touches) {
+        SKSpriteNode *pee = [SKSpriteNode spriteNodeWithImageNamed:@"pee"];
+        pee.position = CGPointMake(self.kitten.position.x, self.kitten.position.y - (self.kitten.size.height / 3));
+        pee.name = @"pee";
+
+
+        [self addChild:pee];
+    }
+
+
     /* Called when a touch begins */
     
 //    for (UITouch *touch in touches) {
@@ -87,6 +90,10 @@
 //        
 //        [self addChild:sprite];
 //    }
+
+
+
+
 }
 
 -(void)update:(CFTimeInterval)currentTime
@@ -100,6 +107,10 @@
         }
     }];
 
+    [self enumerateChildNodesWithName:@"pee" usingBlock:^(SKNode *node, BOOL *stop) {
+        SKSpriteNode *pee = (SKSpriteNode *) node;
+        pee.position = CGPointMake(pee.position.x -3, pee.position.y);
+    }];
 
     if(currentTime - self.kitten.frameDisplaySecond > 0.5) {
         // the cat walks every half second
